@@ -1,0 +1,13 @@
+{
+  "discordToken": "",
+  "databaseUrl": "mongodb://localhost/Discord-Bot",
+  "botName": "DiscordBot",
+  "defaultPrefix": "%",
+  "handlePrefix": true,
+  "greetOwner": true,
+  "inviteLink": "https://discordapp.com/oauth2/authorize?&client_id=642935463048642570&scope=bot&permissions=469990567",
+  "imageURL": "https://i.imgur.com/VEvm3ch.png",
+  "thumbnailHelp": "https://i.imgur.com/MeQdXK6.png",
+  "thumbnailAuthor": "https://i.imgur.com/jlfQOoY.png",
+  "notFoundUrl": "https://i.imgur.com/nDZnMwu.jpg"
+}
