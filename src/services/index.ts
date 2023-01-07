@@ -1,7 +1,7 @@
-/*
-  File to re-export all comands/* module 
-*/
-export { help   } from "./help";
-export { lang   } from "./lang";
-export { info   } from "./info";
-export { button } from "./button";
+import * as messageCommands from "./messageCommands";
+import * as slashCommands from "./slashCommands";
+
+export {
+  messageCommands,
+  slashCommands
+};

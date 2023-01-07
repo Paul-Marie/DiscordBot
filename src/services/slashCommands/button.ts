@@ -1,7 +1,7 @@
-import luxon                  from 'luxon';
+import luxon                                      from 'luxon';
 import { BaseMessageOptions, ButtonInteraction  } from 'discord.js';
-import { createEmbed        } from "../helpers/embed";
-import { createButtons      } from "../helpers/buttons";
+import { createEmbed                            } from "../../helpers/embed";
+import { createButtons                          } from "../../helpers/buttons";
 
 // Handle almanax's embed buttons
 export const button = async (interaction: ButtonInteraction, config: any): Promise<void> => {

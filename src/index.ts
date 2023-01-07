@@ -1,9 +1,19 @@
 import { connect, set } from 'mongoose';
-//import * as config from "./config.json";
-import { bot } from "./discord";
-import * as config from "./config.json";
+import { bot          } from "./discord";
+import * as config      from "./config.json";
 
 set('strictQuery', false);
+
+declare global {
+  interface String {
+    epur(): string;
+  }
+};
+
+// Declare the `epur()` method on String
+String.prototype.epur = function () {
+  return this.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+};
 
 // Start MongoDB's database and import a script file if launched with a third argument
 (async () => {

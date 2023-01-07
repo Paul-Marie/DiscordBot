@@ -10,7 +10,7 @@ export const     lang = {
     type:        ApplicationCommandOptionType.String,
     choices: [{
       name:      "Francais",
-      value:     "fr"
+      value:     "fr-FR"
     }, {
       name:      "Francais (Québec)",
       value:     "fr-CA"
@@ -19,7 +19,7 @@ export const     lang = {
       value:     "en-GB"
     }, {
       name:      "Español",
-      value:     "es"
+      value:     "es-ES"
     }]
   }]
 };
