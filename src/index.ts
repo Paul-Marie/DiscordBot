@@ -1,7 +1,9 @@
-import { connect } from 'mongoose';
+import { connect, set } from 'mongoose';
 //import * as config from "./config.json";
 import { bot } from "./discord";
-import config from "./config.json";
+import * as config from "./config.json";
+
+set('strictQuery', false);
 
 // Start MongoDB's database and import a script file if launched with a third argument
 (async () => {

@@ -1,7 +1,7 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js';
 
 //
-export const createNavigationButtons = (date: string, mode?: boolean) => (
+export const createNavigationButtons = (date: string, mode?: boolean): ActionRowBuilder => (
   new ActionRowBuilder().addComponents([
     new ButtonBuilder()
       .setCustomId(`prev@${date}${!mode ? `@${date}` : ''}`)

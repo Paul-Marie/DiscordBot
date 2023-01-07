@@ -1,19 +1,26 @@
-import * as sentences                   from "../../resources/language.json";
-import * as settings                    from "../../resources/config.json";
-import { MessageEmbed, MessageOptions } from 'discord.js';
-import { format                       } from 'format';
+import * as sentences         from "../languages";
+import * as settings          from "../config.json";
+import { BaseMessageOptions, EmbedBuilder } from 'discord.js';
 
-// Return an Embed object containing all Bwuno's informations
-export const info = (command: void, config: any): MessageOptions => {
-  const embed: MessageEmbed = new MessageEmbed()
-    .setColor(0x4E4EC8)
-    .setDescription(format(sentences[config.lang].INFO_ABOUT_DESCRIPTION,
-      Math.floor(Math.random() * 90000) + 10000, settings.bwuno.name))
-    .addField(sentences[config.lang].INFO_ABOUT_CREATOR, sentences[config.lang].INFO_ABOUT_CREATOR_CONTENT, true)
-    .addField(sentences[config.lang].INFO_ABOUT_PROJECTS, sentences[config.lang].INFO_ABOUT_PROJECTS_CONTENT, true)
-    .addField("Discord:", `[Discord](${settings.dt_price.invite_url})`)
-    .addField(sentences[config.lang].INFO_ABOUT_INVIT, `[Invitation](${settings.bwuno.invite_link})`, true)
-    // FIXME: handle image
-    .setImage("https://i.imgur.com/mcpPHoh.png")
-  return { embeds: [embed] };
-};
+// Return an Embed object containing all bot's informations
+export const info = (command: void, config: any): BaseMessageOptions => ({
+  embeds: [
+    new EmbedBuilder()
+      .setColor(0x4E4EC8)
+      .setDescription(sentences[config.lang].INFO_ABOUT_DESCRIPTION/*, settings.botName*/)
+      .addFields([{
+        name: sentences[config.lang].INFO_ABOUT_CREATOR,
+        value: sentences[config.lang].INFO_ABOUT_CREATOR_CONTENT,
+        inline: true
+      }, {
+        name: sentences[config.lang].INFO_ABOUT_PROJECTS,
+        value: sentences[config.lang].INFO_ABOUT_PROJECTS_CONTENT,
+        inline: true
+      }, {
+        name: sentences[config.lang].INFO_ABOUT_INVIT,
+        value: `[Invitation](${settings.inviteLink})`,
+        inline: true
+      }])
+      .setImage("https://i.imgur.com/mcpPHoh.png")
+    ]
+});

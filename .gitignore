@@ -102,3 +102,7 @@ dist
 
 # TernJS port file
 .tern-port
+
+# Bot's configuration file
+src/config.json
+

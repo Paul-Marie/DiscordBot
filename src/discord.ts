@@ -11,6 +11,7 @@ import * as config      from "./config.json";
 import * as services    from "./services/";
 import * as commands    from "./commands/";
 import Server           from "./models/server";
+import {} from "./helpers/types";
 
 const rest = new REST({ version: '10' }).setToken(config.discordToken);
 export const bot: Client = new Client({
