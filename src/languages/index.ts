@@ -2,11 +2,11 @@
 
 */
 import * as enGB from "./en-GB.json";
-import * as frFR from "./fr-FR.json";
+import * as fr from "./fr.json";
 
 export default {
   "en-GB": enGB,
-  "fr-FR": frFR,
+  "fr": fr,
 };
 
 // TODO: Dynamically import each `.json` in `./`

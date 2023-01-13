@@ -1,20 +1,28 @@
 /*
   This file contain all the discord logic.
 */
-import { Client, Message, Interaction,
-  Guild, ActivityType,
-  GatewayIntentBits,   
-  BaseMessageOptions} from 'discord.js';
-import { REST         } from '@discordjs/rest';
-import { Routes       } from 'discord-api-types/v9';
-import sentences        from "./languages";
-import * as config      from "./config.json";
-import { messageCommands, slashCommands } from "./services/";
-import * as commands    from "./slashCommandsDefinitions";
-import Server           from "./models/server";
+import {
+  Client,
+  REST,
+  Routes,
+  Message,
+  Interaction,
+  Guild,
+  ActivityType,
+  GatewayIntentBits,
+  BaseMessageOptions
+}                    from 'discord.js';
+import {
+  messageCommands,
+  slashCommands
+}                    from "./services/";
+import * as config   from "./config.json";
+import * as commands from "./slashCommandsDefinitions";
+import sentences     from "./languages";
+import Server        from "./models/server";
 
 const rest = new REST({ version: '10' }).setToken(config.discordToken);
-export const bot: Client = new Client({
+export const bot = new Client({
   intents: [
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMembers,
@@ -52,53 +60,52 @@ bot.on("guildCreate", async (guild: Guild): Promise<void> => {
     lang: "fr-FR",
     prefix: config.defaultPrefix
   });
-  const owner = await guild?.fetchOwner();
+  const owner = await guild.fetchOwner();
   config.greetOwner && owner?.send("");
 });
 
 // Called when the bot is kick or ban of a discord' server / guild
-bot.on("guildDelete", async (guild: Guild): Promise<void> => {
-  await Server.findOneAndDelete({ id: guild.id });
+bot.on("guildDelete", async ({ id }): Promise<void> => {
+  await Server.findOneAndDelete({ id });
 });
 
 // Called each time a message is posted on a guild where Bwuno belongs to
 bot.on("messageCreate", async (message: Message): Promise<void> => {
   if (message.author.bot)
     return;
-  const server = await Server.findOne({ id: message.guild.id });
+  const { content, guild          } = message;
+  const { username, discriminator } = message.author;
+  const server = await Server.findOne({ id: guild.id });
   if (message.mentions.has(bot.user) && !message.mentions.everyone)
     await message.channel.send(sentences[server.lang].INFO_MENTION);
-  else if (message.content.toLowerCase().startsWith(server?.prefix?.toLowerCase())) {
-    const author   = `${message.author.username}#${message.author.discriminator}`;
-    const response = message.content.epur().replace(server.prefix, '').trim();
-    const inputs = response.split(" ");
-    console.info(`${author}: ${message.content}`);
-    const functions = { 
-      '': messageCommands.help,
-      "help": messageCommands.help,
-      "info": messageCommands.info,
-      "lang": messageCommands.lang,
-      "prefix": messageCommands.prefix
-    };    
+  else if (content.toLowerCase().startsWith(server?.prefix)) {
+    const author   = `${username}#${discriminator}`;
+    const response = content.epur().replace(server.prefix, '').trim();
+    const inputs   = response.split(" ");
+    console.info(`${author}: ${content}`);
     if (config.handlePrefix) {
-      const commandO: (Message, string, any) => Promise<void> | undefined = functions[inputs[0].epur()]
-      commandO
-        ? await commandO(message, inputs, server)
+      const command = messageCommands[inputs[0]]
+      command
+        ? await command(message, inputs, server)
         : await message.channel.send(`use: \`/${inputs[0]}\``);
     } else
-      await message.channel.send(`use: \`/${inputs[0]}\``);
+      await message.channel.send(`I don't support prefixed commands, use slashcommands one`);
   }
 });
 
 // Called each time a message is posted on a channel where the bot belongs
 bot.on("interactionCreate", async (interaction: Interaction): Promise<void> => {
   const { username, discriminator } = interaction.user;
-  const server = await Server.findOne({ id: interaction.guild?.id });
+  const server = await Server.findOne({
+    id: interaction.guild?.id
+  }) ?? { lang: "fr-FR" };
   if (interaction.isCommand()) {
-    const parameters = interaction.options.data.length ? `(${interaction.options?.data?.[0]?.name}):${interaction.options?.data?.[0]?.value}` : '';
-    console.info(`${username}#${discriminator}: /${interaction.commandName} ${parameters}`);
-    const reply: BaseMessageOptions = await slashCommands[interaction.commandName](interaction, server);
-    reply && await interaction.reply(reply);
+    const { commandName } = interaction;
+    const { data        } = interaction.options;
+    const parameters      = data.length ? `(${data?.[0]?.name}):${data?.[0]?.value}` : '';
+    console.info(`${username}#${discriminator}: /${commandName} ${parameters}`);
+    const message: BaseMessageOptions = await slashCommands[commandName](interaction, server);
+    message && await interaction.reply(message);
   } else if (interaction.isButton()) {
     console.info(`${username}#${discriminator}: ${interaction.customId}`);
     await slashCommands.button(interaction, server);

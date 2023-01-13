@@ -1,0 +1,21 @@
+{
+  "INFO_MENTION": "Hey %s ! Utilise moi avec le prefix: `%s`.",
+  "INFO_HELP_BASE": "🔍 Affiche ce menu",
+  "INFO_HELP_ABOUT": "🔍 Affiche les informations liées à `%s`",
+  "INFO_HELP_LANG": "🔍 Permet de changer la langue de `%s`",
+  "INFO_HELP_PREFIX": "🔍 Permet de changer le prefix des commandes textuels",
+  "INFO_ABOUT_DESCRIPTION": "`Hey ! Moi c'est %s, le bot Discord spécial Almanax`",
+  "INFO_ABOUT_CREATOR": "Origines :",
+  "INFO_ABOUT_CREATOR_CONTENT": "Ma maman c'est __Nagoya 🌸#1390__, c'est elle qui a créé tous mes dessins. N'hésite pas à la contacter si tu as besoin de dessins privés",
+  "INFO_ABOUT_PROJECTS": "Autres Projets :",
+  "INFO_ABOUT_PROJECTS_CONTENT": "N'hésitez pas à faire un tour sur les autres projets de mon créateur, comme [OugAhPI](https://google.com) et [Ougahdget](https://google.com)",
+  "INFO_ABOUT_INVIT": "Lien d'Invitation :",
+  "SUCCESS_LANGUAGE_CHANGED": "😇 La langue a bien été changée en `%s`.",
+  "SUCCESS_PREFIX_CHANGED": "😇 Nouveau préfix: `%s`. Vous pouvez désormais me parlez comme ceci `%s`.",
+  "ERROR_COMMAND_NOT_FOUND": "🥵 Commande `%s` introuvable. Utilise `%s`.",
+  "ERROR_UNSUPORTED_LANGUAGE": "🥵 Langage non supporté. Si tu veut ajouté le tiens contacte nous.",
+  "ERROR_PREFIX_ALREADY": "🥵 C'est déjà le prefix utilisé.",
+  "ERROR_ALREADY_CURRENT_LANGUAGE": "🥵 C'est déjà le langage utilisé.",
+  "ERROR_INSUFFICIENT_ARGUMENT": "🥵 La commande s'utilise comme ceci: `%s`.",
+  "ERROR_INSUFFICIENT_PERMISSIONS": "🥵 Tu n'as pas les permissions nécéssaires, demande à un Admin."
+}

@@ -4,7 +4,7 @@
 import { Client,
   TextChannel, Intents } from 'discord.js';
 import { getDate       } from "../helpers/utils";
-import { createEmbed   } from "../helpers/embed";
+//import { createEmbed   } from "../helpers/embed";
 import { createButtons } from "../helpers/buttons";
 import Server            from "../models/server";
 import * as settings     from "../../resources/config.json";
@@ -19,7 +19,7 @@ export default async (): Promise<void> => {
 		const servers = await Server.find({ auto_mode: true });
     await Promise.all(servers.map(async ({ auto_channel, server_id }) => (
       await (bot.channels.cache.get(auto_channel) as TextChannel)?.send({
-        embeds: [await createEmbed(almanax, server_id)],
+        //embeds: [await createEmbed(almanax, server_id)],
         ...createButtons(almanax.Date)
       })
     )));

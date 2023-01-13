@@ -1,9 +1,12 @@
-import * as mongoose from 'mongoose';
+import { Schema, model } from 'mongoose';
+import * as config       from "../config.json";
 
 // User model
-const userSchema = new mongoose.Schema({
-  id:   { type: String, required: true, unique: true     },
-  lang: { type: Number, required: true, default: "fr-FR" },
+const userSchema = new Schema({
+  id:        { type: String, required: true, unique: true                   },
+  lang:      { type: String, required: true, default: "fr-FR"               },
+  balance:   { type: Number, required: true, default: config.defaultBalance },
+  lastClaim: { type: Date                                                   },
 });
 
-export default mongoose.model("User", userSchema);
+export default model("User", userSchema);
